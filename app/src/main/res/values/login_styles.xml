@@ -1,0 +1,11 @@
+<resources>
+    <style name="LoginField" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">#FFFFFF</item>
+        <item name="boxStrokeColor">#DDE1E7</item>
+        <item name="hintTextColor">#626873</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+    </style>
+</resources>

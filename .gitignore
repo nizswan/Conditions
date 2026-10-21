@@ -1,0 +1,35 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+backend/.env
+backend/__pycache__/
+
+# Local IDE state and generated files
+.idea/
+**/build/
+**/__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local credentials and databases
+.env
+.env.*
+*.jks
+*.keystore
+*.db
+*.sqlite
+*.sqlite3
+

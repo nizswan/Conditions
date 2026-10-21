@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_home"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F4F5F7">
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@id/home"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    <LinearLayout
+        android:id="@+id/nav_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="4dp"
+        android:background="#FFFFFF">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageButton
+                android:id="@+id/vault"
+                android:layout_width="41dp"
+                android:layout_height="41dp"
+                android:padding="10.5dp"
+                android:background="@drawable/nav_circle"
+                android:src="@drawable/icon_vault"
+                android:contentDescription="@string/tab_vault" />
+            <TextView
+                android:id="@+id/vault_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/tab_vault"
+                android:textColor="#626873"
+                android:textSize="11sp"
+                android:importantForAccessibility="no" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageButton
+                android:id="@+id/create"
+                android:layout_width="41dp"
+                android:layout_height="41dp"
+                android:padding="10.5dp"
+                android:background="@drawable/nav_circle"
+                android:src="@drawable/icon_create"
+                android:contentDescription="@string/tab_create" />
+            <TextView
+                android:id="@+id/create_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/tab_create"
+                android:textColor="#626873"
+                android:textSize="11sp"
+                android:importantForAccessibility="no" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageButton
+                android:id="@+id/settings"
+                android:layout_width="41dp"
+                android:layout_height="41dp"
+                android:padding="10.5dp"
+                android:background="@drawable/nav_circle"
+                android:src="@drawable/icon_settings"
+                android:contentDescription="@string/tab_settings" />
+            <TextView
+                android:id="@+id/settings_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/tab_settings"
+                android:textColor="#626873"
+                android:textSize="11sp"
+                android:importantForAccessibility="no" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageButton
+                android:id="@+id/web"
+                android:layout_width="41dp"
+                android:layout_height="41dp"
+                android:padding="10.5dp"
+                android:background="@drawable/nav_circle"
+                android:src="@drawable/icon_web"
+                android:contentDescription="@string/tab_web" />
+            <TextView
+                android:id="@+id/web_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/tab_web"
+                android:textColor="#626873"
+                android:textSize="11sp"
+                android:importantForAccessibility="no" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

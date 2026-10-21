@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#F4F5F7">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="@string/tab_settings"
+            android:textColor="#17191D"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/settings_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#17191D"
+                android:textSize="16sp" />
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.Material3.Button.TextButton"
+                android:id="@+id/edit_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edit"
+                android:textAllCaps="false"
+                android:textColor="#306BF3" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/settings_username"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#17191D"
+                android:textSize="16sp" />
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.Material3.Button.TextButton"
+                android:id="@+id/edit_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edit"
+                android:textAllCaps="false"
+                android:textColor="#306BF3" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/last_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textColor="#626873"
+            android:textSize="14sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/conditions_permissions"
+            android:textColor="#17191D"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/permission_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="@string/permission_time"
+            android:textColor="#17191D"
+            android:textSize="16sp" />
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/permission_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="@string/permission_location"
+            android:textColor="#17191D"
+            android:textSize="16sp" />
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/permission_battery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="@string/permission_battery"
+            android:textColor="#17191D"
+            android:textSize="16sp" />
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/permission_bluetooth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="@string/permission_bluetooth"
+            android:textColor="#17191D"
+            android:textSize="16sp" />
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/permission_microphone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="@string/permission_microphone"
+            android:textColor="#17191D"
+            android:textSize="16sp" />
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/permission_wifi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="@string/permission_wifi"
+            android:textColor="#17191D"
+            android:textSize="16sp" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.Material3.Button.TextButton"
+            android:id="@+id/sign_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:insetLeft="0dp"
+            android:insetRight="0dp"
+            android:gravity="start|center_vertical"
+            android:text="@string/sign_out"
+            android:textAllCaps="false"
+            android:textColor="#D32F2F" />
+    </LinearLayout>
+</ScrollView>

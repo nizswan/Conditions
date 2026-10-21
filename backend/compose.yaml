@@ -1,0 +1,28 @@
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: conditions
+      POSTGRES_USER: conditions
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run setup.ps1 first}
+    volumes:
+      - database:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U conditions -d conditions"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  api:
+    build: .
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      DB_HOST: db
+      POSTGRES_DB: conditions
+      POSTGRES_USER: conditions
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run setup.ps1 first}
+    depends_on:
+      db:
+        condition: service_healthy
+volumes:
+  database:
