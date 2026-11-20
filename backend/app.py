@@ -38,11 +38,13 @@ def initialize():
             CREATE TABLE IF NOT EXISTS sessions (
                 token_hash TEXT PRIMARY KEY,
                 user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-                expires_at TIMESTAMPTZ NOT NULL DEFAULT now() + interval '1 day'
+                expires_at TIMESTAMPTZ NOT NULL DEFAULT 'infinity'
             )
         """)
         db.execute("ALTER TABLE users ADD COLUMN IF NOT EXISTS last_login_at TIMESTAMPTZ")
         db.execute("ALTER TABLE sessions ADD COLUMN IF NOT EXISTS previous_login_at TIMESTAMPTZ")
+        # Keep existing valid logins too; do not bring back already expired sessions.
+        db.execute("UPDATE sessions SET expires_at = 'infinity' WHERE expires_at > now() AND expires_at < 'infinity'")
 
 
 def session(db, user):
@@ -54,7 +56,7 @@ def session(db, user):
     db.execute("DELETE FROM sessions WHERE expires_at <= now()")
     db.execute("""
         INSERT INTO sessions (token_hash, user_id, previous_login_at, expires_at)
-        VALUES (%s, %s, %s, now() + interval '30 days')
+        VALUES (%s, %s, %s, 'infinity')
     """, (hashlib.sha256(token.encode()).hexdigest(), user["id"], previous))
     return jsonify(token=token, user={
         "id": user["id"], "username": user["username"], "name": user["name"],
@@ -140,6 +142,55 @@ def me():
     previous = user.pop("previous_login_at")
     user["last_logged_on"] = int(previous.timestamp() * 1000) if previous else None
     return jsonify(user=user)
+
+
+@app.post("/profile")
+def update_profile():
+    header = request.headers.get("Authorization", "")
+    token = header.removeprefix("Bearer ") if header.startswith("Bearer ") else ""
+    data = request.get_json(silent=True)
+    if not isinstance(data, dict) or data.get("field") not in ("name", "username"):
+        return jsonify(error="Choose name or username."), 400
+    field, value = data["field"], data.get("value")
+    if not isinstance(value, str):
+        return jsonify(error="Enter a value."), 400
+    value = value.strip()
+    if field == "name" and not 1 <= len(value) <= 100:
+        return jsonify(error="Name is required (up to 100 characters)."), 400
+    if field == "username":
+        if not re.fullmatch(r"[A-Za-z0-9]{1,32}", value):
+            return jsonify(error="Username must contain only letters and numbers (1-32 characters)."), 400
+        value = value.lower()
+    try:
+        with database() as db:
+            account = db.execute("SELECT user_id FROM sessions WHERE token_hash = %s AND expires_at > now()",
+                                 (hashlib.sha256(token.encode()).hexdigest(),)).fetchone()
+            if not token or not account:
+                return jsonify(error="Please sign in again."), 401
+            if field == "name":
+                db.execute("UPDATE users SET name = %s WHERE id = %s", (value, account["user_id"]))
+            else:
+                db.execute("UPDATE users SET username = %s WHERE id = %s", (value, account["user_id"]))
+    except psycopg.errors.UniqueViolation:
+        return jsonify(error="That username is already taken."), 409
+    return me()
+
+
+@app.delete("/account")
+def delete_account():
+    header = request.headers.get("Authorization", "")
+    token = header.removeprefix("Bearer ") if header.startswith("Bearer ") else ""
+    if not token:
+        return jsonify(error="Please sign in again."), 401
+    with database() as db:
+        deleted = db.execute("""
+            DELETE FROM users WHERE id = (
+                SELECT user_id FROM sessions WHERE token_hash = %s AND expires_at > now()
+            ) RETURNING id
+        """, (hashlib.sha256(token.encode()).hexdigest(),)).fetchone()
+        if not deleted:
+            return jsonify(error="Please sign in again."), 401
+    return jsonify(status="deleted")
 
 
 @app.post("/signout")

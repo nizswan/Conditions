@@ -11,7 +11,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.GCMParameterSpec;
 import java.nio.charset.StandardCharsets;
 
-/** Saves only the session token, encrypted with a device-held key, outside backups. */
+/** Saves the session token and account details encrypted, outside backups. Never saves passwords. */
 final class SessionStore {
     private static final String KEY = "conditions_session";
     private final File file;

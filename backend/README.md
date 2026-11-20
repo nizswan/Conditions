@@ -16,9 +16,25 @@ Check:
     Invoke-RestMethod http://localhost:8000/health
     docker compose logs api
 
-Then run the Android app on the Android Studio emulator. The app uses
-http://10.0.2.2:8000 to reach your computer. A physical phone requires different
-network configuration; this setup intentionally listens only on localhost.
+Start the Android Studio emulator (or connect one USB-debugging phone), then run:
+
+    powershell -ExecutionPolicy Bypass -File .\connect-device.ps1
+
+Run the Android app. It uses http://127.0.0.1:8000 through ADB reverse port
+forwarding to reach your computer, without requesting local-network permission.
+Run the script again after restarting the emulator or reconnecting the device.
+The backend still listens only on localhost.
+
+For an emulator, this script also checks Windows Location and starts a hidden
+location-sync helper when a current fix is available. The helper forwards the
+computer's coordinates every 10 seconds and exits when the emulator closes.
+It runs locally without an account or API key. Enable Windows Settings > Privacy
+& security > Location, including desktop app access, if Windows cannot provide a
+position. Accuracy depends on the computer's location sources; it is not
+guaranteed GPS accuracy. The status file is
+`%LOCALAPPDATA%/Conditions/emulator-location-status.txt`.
+No fixed Orlando/UCF coordinates are used. Each computer supplies its own fix.
+USB-connected physical phones keep their own GPS location.
 
 Stop without deleting accounts:
 
@@ -32,10 +48,14 @@ POST /signup: JSON with name, username, password.
 POST /signin: JSON with username, password.
 Both return a user and a random session token after success.
 GET /me: send Authorization: Bearer <token> to verify the signed-in user.
-New sessions expire after 30 days. Token hashes are stored in PostgreSQL.
+Sessions stay valid until sign-out (or server-side revocation). Existing unexpired
+sessions are kept when upgrading. Token hashes are stored in PostgreSQL.
 Android encrypts the token with Android Keystore and excludes it from backups.
-On launch, /me validates the saved token before opening Library. Restoring a
-session does not count as another login. Sign Out removes the local token and
+On launch, the saved account opens Library immediately, even if the backend is
+offline. /me checks the token in the background; an explicit rejection returns to
+sign-in. Older token-only installs need one successful /me request to cache the
+account details. Restoring a session does not count as another login.
+Sign Out removes the local token and account details and
 revokes it on the server when the server is reachable.
 The backend records previous successful login timestamps. New users have no
 previous login; historical logins before this feature was added are unknown.
@@ -52,21 +72,10 @@ PostgreSQL is not exposed to the host; only the API can connect to it.
 
 ## Current scope
 
-Sign-up and sign-in open LibraryFragment with a welcome and an empty-library message.
+Sign-up and sign-in open the account's libraries.
 Android remembers valid sessions across restarts and rotation.
-Forgot Password is still a placeholder: accounts have no recovery email.
-Library persistence and file upload/storage will be added later.
+Library data and file references are stored locally on the Android device.
 
 This is a local starter. Before deployment, configure HTTPS, a deployment secret
 store, login rate limiting, recovery, and authorization on library/file endpoints.
-Local HTTP is permitted only for the emulator address in debug builds.
-
-## Verify
-
-With the containers running:
-
-    python tests/smoke.py
-
-The test creates disposable users with randomly generated usernames. Their names
-start with "Backend test". It checks signup, duplicate usernames, validation,
-password verification, and session authorization.
+Local HTTP is permitted only for 127.0.0.1 in debug builds.

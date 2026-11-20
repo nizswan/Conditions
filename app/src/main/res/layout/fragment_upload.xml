@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="32dp"
+    android:fillViewport="true"
     android:background="#F4F5F7">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:padding="24dp" android:orientation="vertical">
+    <LinearLayout android:id="@+id/payload_editor" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
@@ -17,8 +20,11 @@
 
     <LinearLayout
         android:id="@+id/select_payload"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/select_payload"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="120dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/payload_box"
         android:gravity="center"
@@ -40,6 +46,14 @@
             android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>
+
+    <TextView android:id="@+id/payload_count" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:layout_marginTop="12dp"
+        android:textColor="#626873" android:textSize="14sp" />
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="@string/payload_types" android:textColor="#626873" android:textSize="12sp" />
+    <LinearLayout android:id="@+id/payload_items" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:orientation="vertical" />
 
     <TextView
         android:layout_width="match_parent"
@@ -66,10 +80,7 @@
             android:textColor="#17191D" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+    <include layout="@layout/view_live_conditions" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/upload_select_library"
@@ -81,4 +92,36 @@
         android:textColor="#FFFFFF"
         app:backgroundTint="#306BF3"
         app:cornerRadius="8dp" />
-</LinearLayout>
+    </LinearLayout>
+    <LinearLayout android:id="@+id/payload_libraries" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
+        <ImageButton android:id="@+id/payload_back"
+            android:layout_width="48dp" android:layout_height="48dp"
+            android:layout_gravity="start" android:padding="12dp"
+            android:src="@drawable/icon_back" android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/back_to_payload" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="@string/select_library" android:textSize="28sp"
+                android:textColor="#17191D" android:textStyle="bold" />
+            <ImageButton android:id="@+id/payload_add_library" android:layout_width="48dp"
+                android:layout_height="48dp" android:padding="12dp" android:background="@drawable/nav_circle"
+                android:src="@drawable/icon_create" android:contentDescription="@string/add_library" />
+        </LinearLayout>
+        <TextView android:id="@+id/payload_summary" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="16dp"
+            android:textSize="16sp" android:textColor="#626873" />
+        <TextView android:id="@+id/payload_no_libraries" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="32dp"
+            android:text="@string/payload_no_libraries" android:textSize="18sp" android:textColor="#626873" />
+        <LinearLayout android:id="@+id/payload_library_options" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="16dp"
+            android:orientation="vertical" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/payload_save" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="16dp"
+            android:text="Add to selected libraries" android:textAllCaps="false" />
+    </LinearLayout>
+    </LinearLayout>
+</ScrollView>

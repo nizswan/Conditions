@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+        <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/live_conditions_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:strokeColor="#DDE1E7"
+            app:strokeWidth="1dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+                    <View
+                        android:layout_width="6dp"
+                        android:layout_height="6dp"
+                        android:layout_marginEnd="6dp"
+                        android:background="@drawable/green_dot"
+                        android:importantForAccessibility="no" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/live_conditions"
+                        android:textColor="#17191D"
+                        android:textStyle="bold"
+                        android:textSize="11sp" />
+                </LinearLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+                    <TextClock
+                        android:id="@+id/live_time"
+                        style="@style/ConditionBadge"
+                        
+                        android:format12Hour="'Time:' h:mm a"
+                        android:format24Hour="'Time:' HH:mm" />
+                    <TextView
+                        android:id="@+id/live_location"
+                        style="@style/ConditionBadge"
+                        android:visibility="gone" />
+                    <TextView
+                        android:id="@+id/live_battery"
+                        style="@style/ConditionBadge"
+                        android:visibility="gone" />
+                    <TextView
+                        android:id="@+id/live_bluetooth"
+                        style="@style/ConditionBadge"
+                        android:visibility="gone" />
+                    <TextView
+                        android:id="@+id/live_wifi"
+                        style="@style/ConditionBadge"
+                        android:visibility="gone" />
+                    <TextView
+                        android:id="@+id/live_history"
+                        style="@style/ConditionBadge"
+                        android:visibility="gone" />
+                    <TextView
+                        android:id="@+id/live_environment"
+                        style="@style/ConditionBadge"
+                        android:visibility="gone" />
+                    <androidx.constraintlayout.helper.widget.Flow
+                        android:id="@+id/condition_flow"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:constraint_referenced_ids="live_time,live_location,live_battery,live_bluetooth,live_wifi,live_history,live_environment"
+                        app:flow_wrapMode="chain"
+                        app:flow_maxElementsWrap="4"
+                        app:flow_horizontalStyle="packed"
+                        app:flow_horizontalBias="0"
+                        app:flow_horizontalGap="6dp"
+                        app:flow_verticalGap="4dp" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>

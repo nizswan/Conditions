@@ -108,14 +108,6 @@
             android:textColor="#17191D"
             android:textSize="16sp" />
         <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/permission_microphone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:text="@string/permission_microphone"
-            android:textColor="#17191D"
-            android:textSize="16sp" />
-        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/permission_wifi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -123,6 +115,35 @@
             android:text="@string/permission_wifi"
             android:textColor="#17191D"
             android:textSize="16sp" />
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/permission_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="@string/permission_history"
+            android:textColor="#17191D"
+            android:textSize="16sp" />
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/permission_environment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="@string/permission_environment"
+            android:textColor="#17191D"
+            android:textSize="16sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/environment_permission_reason"
+            android:textSize="12sp"
+            android:textColor="#626873" />
+        <TextView
+            android:id="@+id/weather_credit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="12sp"
+            android:textColor="#626873" />
         <com.google.android.material.button.MaterialButton
             style="@style/Widget.Material3.Button.TextButton"
             android:id="@+id/sign_out"
@@ -135,6 +156,32 @@
             android:insetRight="0dp"
             android:gravity="start|center_vertical"
             android:text="@string/sign_out"
+            android:textAllCaps="false"
+            android:textColor="#D32F2F" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/reset_libraries"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:insetLeft="0dp"
+            android:insetRight="0dp"
+            android:gravity="start|center_vertical"
+            android:text="Reset libraries"
+            android:textAllCaps="false"
+            android:textColor="#D32F2F" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/delete_account"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:insetLeft="0dp"
+            android:insetRight="0dp"
+            android:gravity="start|center_vertical"
+            android:text="Delete account"
             android:textAllCaps="false"
             android:textColor="#D32F2F" />
     </LinearLayout>

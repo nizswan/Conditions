@@ -17,8 +17,6 @@ import android.text.TextPaint;
 import com.google.android.material.button.MaterialButton;
 
 import androidx.activity.EdgeToEdge;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -34,20 +32,34 @@ public class MainActivity extends AppCompatActivity {
     private String accountUsername = "";
     private long loggedOn;
     private int tab = R.id.vault;
-    private final ActivityResultLauncher<String> networkPermission =
-            registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
-                if (granted) submit();
-                else Toast.makeText(this, "Local network access is needed to reach your backend.",
-                        Toast.LENGTH_LONG).show();
-            });
+    private HistoryStore history;
+    private VisitState visit;
+    private boolean visible;
+    private boolean signingOut;
+    private final android.os.Handler historyHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+    private final Runnable historyUpdate = new Runnable() {
+        @Override public void run() {
+            if (visit.id == 0) return;
+            history.updateVisit(visit.id, System.currentTimeMillis(), false);
+            historyHandler.postDelayed(this, 30000);
+        }
+    };
+
+    // Keep the same visit when the screen rotates.
+    public static class VisitState extends androidx.lifecycle.ViewModel {
+        long id;
+        long previous;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+        history = new HistoryStore(this);
+        visit = new androidx.lifecycle.ViewModelProvider(this).get(VisitState.class);
 
         auth = new Auth(this);
-        // Rebuild the home screen only after validating the saved session.
+        // Rebuild the screen using the account saved on this device.
         if (savedInstanceState != null) {
             getSupportFragmentManager().getFragments().forEach(fragment ->
                     getSupportFragmentManager().beginTransaction().remove(fragment).commitNow());
@@ -56,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         View mainLayout = findViewById(R.id.login);
         if (savedInstanceState != null) {
             screen = savedInstanceState.getInt("screen", 0);
+            tab = savedInstanceState.getInt("tab", R.id.vault);
             if (screen == 3) screen = 1;
         }
         showScreen(screen);
@@ -65,8 +78,6 @@ public class MainActivity extends AppCompatActivity {
         });
         findViewById(R.id.sign_up).setOnClickListener(view ->
                 showScreen(screen == 2 ? 1 : 2));
-        findViewById(R.id.forgot).setOnClickListener(view ->
-                Toast.makeText(this, R.string.forgot_placeholder, Toast.LENGTH_SHORT).show());
         ((EditText) findViewById(R.id.password)).addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -97,14 +108,29 @@ public class MainActivity extends AppCompatActivity {
             findViewById(R.id.sign_in).setEnabled(false);
             findViewById(R.id.sign_up).setEnabled(false);
             findViewById(R.id.account).setEnabled(false);
+            org.json.JSONObject savedUser = auth.getSavedUser();
+            if (savedUser != null) {
+                accountUsername = savedUser.optString("username");
+                loggedOn = savedUser.optLong("last_logged_on", 0);
+                showLibrary(savedUser.optString("name"));
+            }
             auth.restore((user, error) -> {
                 if (isFinishing() || isDestroyed()) return;
                 busy = false;
                 if (user != null) {
                     accountUsername = user.optString("username");
                     loggedOn = user.optLong("last_logged_on", 0);
-                    showLibrary(user.optString("name"));
+                    userName = user.optString("name");
+                    if (screen != 3) showLibrary(userName);
                 } else {
+                    if (screen == 3) {
+                        // The server explicitly rejected the saved session.
+                        finishHistoryVisit();
+                        screen = 0;
+                        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+                        recreate();
+                        return;
+                    }
                     findViewById(R.id.sign_in).setEnabled(true);
                     findViewById(R.id.sign_up).setEnabled(true);
                     findViewById(R.id.account).setEnabled(true);
@@ -151,12 +177,6 @@ public class MainActivity extends AppCompatActivity {
             confirm.requestFocus();
             return;
         }
-        if (android.os.Build.VERSION.SDK_INT >= 37
-                && checkSelfPermission("android.permission.ACCESS_LOCAL_NETWORK")
-                != android.content.pm.PackageManager.PERMISSION_GRANTED) {
-            networkPermission.launch("android.permission.ACCESS_LOCAL_NETWORK");
-            return;
-        }
         busy = true;
         findViewById(R.id.sign_in).setEnabled(false);
         findViewById(R.id.sign_up).setEnabled(false);
@@ -179,7 +199,49 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void updateProfile(String field, String value, Auth.Result result) {
+        auth.updateProfile(field, value, (user, error) -> {
+            if (isFinishing() || isDestroyed()) return;
+            if (user != null) {
+                accountUsername = user.optString("username");
+                userName = user.optString("name");
+            }
+            result.complete(user, error);
+            if (user != null) recreate();
+        });
+    }
+
+    public void deleteAccount(Auth.Result result) {
+        signingOut = true;
+        finishHistoryVisit();
+        auth.deleteAccount((user, error) -> {
+            if (isFinishing() || isDestroyed()) return;
+            if (error != null) {
+                signingOut = false;
+                updateHistory();
+                result.complete(null, error);
+                return;
+            }
+            try (LibraryStore libraries = new LibraryStore(this)) {
+                android.database.sqlite.SQLiteDatabase db = libraries.getWritableDatabase();
+                db.beginTransaction();
+                try {
+                    for (String table : new String[]{"libraries", "blocks", "choices"})
+                        db.delete(table, "username = ?", new String[]{accountUsername});
+                    db.setTransactionSuccessful();
+                } finally { db.endTransaction(); }
+            }
+            history.getWritableDatabase().delete("visits", "username = ?", new String[]{accountUsername});
+            getSharedPreferences("conditions_" + accountUsername, MODE_PRIVATE).edit().clear().commit();
+            getViewModelStore().clear();
+            result.complete(null, null);
+            signOut();
+        });
+    }
+
     public void signOut() {
+        signingOut = true;
+        finishHistoryVisit();
         auth.signOut(() -> {
             if (isFinishing() || isDestroyed()) return;
             getSupportFragmentManager().getFragments().forEach(fragment ->
@@ -195,10 +257,11 @@ public class MainActivity extends AppCompatActivity {
     private void showLibrary(String name) {
         screen = 3;
         userName = name;
+        if (visible) updateHistory();
         android.view.inputmethod.InputMethodManager keyboard =
                 (android.view.inputmethod.InputMethodManager)
                         getSystemService(INPUT_METHOD_SERVICE);
-        keyboard.hideSoftInputFromWindow(findViewById(R.id.login).getWindowToken(), 0);
+        keyboard.hideSoftInputFromWindow(findViewById(android.R.id.content).getWindowToken(), 0);
         setContentView(R.layout.screen_home);
         View home = findViewById(R.id.main_home);
         View navBar = findViewById(R.id.nav_bar);
@@ -213,7 +276,16 @@ public class MainActivity extends AppCompatActivity {
         for (int id : new int[]{R.id.vault, R.id.create, R.id.settings, R.id.web}) {
             findViewById(id).setOnClickListener(view -> openTab(view.getId()));
         }
-        openTab(R.id.vault);
+        openTab(tab);
+    }
+
+    public void createPayloadInLibrary(long libraryId) {
+        PayloadDraft draft = new androidx.lifecycle.ViewModelProvider(this).get("payload_" + accountUsername, PayloadDraft.class);
+        java.util.ArrayList<Long> selected = new java.util.ArrayList<>();
+        selected.add(libraryId);
+        draft.state.set("library_ids", selected);
+        draft.state.set("selecting", false);
+        openTab(R.id.create);
     }
 
     private void openTab(int id) {
@@ -233,17 +305,15 @@ public class MainActivity extends AppCompatActivity {
         page.setArguments(details);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.home, page).commit();
-        for (int buttonId : new int[]{R.id.vault, R.id.create, R.id.settings, R.id.web}) {
-            android.widget.ImageButton button = findViewById(buttonId);
-            button.setImageTintList(ColorStateList.valueOf(
-                    Color.parseColor(buttonId == id ? "#306BF3" : "#626873")));
-            button.setSelected(buttonId == id);
-        }
         int[] buttons = {R.id.vault, R.id.create, R.id.settings, R.id.web};
         int[] labels = {R.id.vault_label, R.id.create_label, R.id.settings_label, R.id.web_label};
         for (int i = 0; i < buttons.length; i++) {
-            ((TextView) findViewById(labels[i])).setTextColor(
-                    Color.parseColor(buttons[i] == id ? "#306BF3" : "#626873"));
+            boolean selected = buttons[i] == id;
+            int color = Color.parseColor(selected ? "#306BF3" : "#626873");
+            android.widget.ImageButton button = findViewById(buttons[i]);
+            button.setImageTintList(ColorStateList.valueOf(color));
+            button.setSelected(selected);
+            ((TextView) findViewById(labels[i])).setTextColor(color);
         }
     }
 
@@ -262,7 +332,6 @@ public class MainActivity extends AppCompatActivity {
         ((EditText) findViewById(R.id.password)).setImeOptions(signingUp
                 ? android.view.inputmethod.EditorInfo.IME_ACTION_NEXT
                 : android.view.inputmethod.EditorInfo.IME_ACTION_DONE);
-        findViewById(R.id.forgot).setVisibility(screen == 1 ? View.VISIBLE : View.GONE);
 
         TextView account = findViewById(R.id.account);
         account.setVisibility(form);
@@ -308,14 +377,57 @@ public class MainActivity extends AppCompatActivity {
         status.setTextColor(Color.parseColor(score == 0 ? "#626873" : color));
     }
 
+    public void updateHistory() {
+        boolean enabled = visible && !signingOut && screen == 3 && !accountUsername.isEmpty()
+                && new ConditionSettings(this, accountUsername).isEnabled("history");
+        if (!enabled) {
+            finishHistoryVisit();
+            return;
+        }
+        if (visit.id == 0) {
+            visit.previous = history.lastSeen(accountUsername);
+            visit.id = history.startVisit(accountUsername, System.currentTimeMillis());
+        }
+        historyHandler.removeCallbacks(historyUpdate);
+        historyHandler.postDelayed(historyUpdate, 30000);
+    }
+
+    public long previousVisit() {
+        return visit.previous;
+    }
+
+    private void finishHistoryVisit() {
+        historyHandler.removeCallbacks(historyUpdate);
+        if (visit.id != 0) {
+            history.updateVisit(visit.id, System.currentTimeMillis(), true);
+            visit.id = 0;
+        }
+    }
+
+    @Override protected void onStart() {
+        super.onStart();
+        visible = true;
+        updateHistory();
+    }
+
+    @Override protected void onStop() {
+        visible = false;
+        historyHandler.removeCallbacks(historyUpdate);
+        if (!isChangingConfigurations()) finishHistoryVisit();
+        super.onStop();
+    }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("screen", screen);
+        outState.putInt("tab", tab);
     }
 
     @Override
     protected void onDestroy() {
+        historyHandler.removeCallbacks(historyUpdate);
+        history.close();
         auth.close();
         super.onDestroy();
     }

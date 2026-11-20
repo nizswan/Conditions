@@ -1,26 +1,62 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="32dp"
-    android:background="#F4F5F7">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/web_title"
-        android:textColor="#17191D"
-        android:textSize="28sp"
-        android:textStyle="bold" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/select_library"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/select_library"
-        android:textColor="#306BF3"
-        app:backgroundTint="#E7EEFF"
-        android:textAllCaps="false" />
-</FrameLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:padding="16dp" android:background="#F4F5F7">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
+        <ImageButton android:id="@+id/web_back" android:layout_width="48dp" android:layout_height="48dp"
+            android:src="@drawable/icon_back" android:background="@android:color/transparent" android:padding="12dp"
+            android:contentDescription="Back" android:visibility="gone" />
+        <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+            android:text="Content Web" android:textColor="#17191D" android:textSize="28sp" android:textStyle="bold" />
+        <ImageButton android:id="@+id/web_display" android:layout_width="48dp" android:layout_height="48dp"
+            android:src="@android:drawable/ic_menu_view" android:background="@android:color/transparent"
+            android:padding="12dp" android:contentDescription="Select items to display" android:visibility="gone" />
+    </LinearLayout>
+    <ScrollView android:id="@+id/web_setup" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <LinearLayout android:id="@+id/web_setup_content" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+        <LinearLayout android:id="@+id/web_controls" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+            <com.google.android.material.button.MaterialButton android:id="@+id/select_library"
+                android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp"
+                android:text="Select library" android:textAllCaps="false" android:textColor="#306BF3" app:backgroundTint="#E7EEFF" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/web_reshuffle"
+                android:layout_width="match_parent" android:layout_height="wrap_content" android:visibility="gone"
+                android:text="Reshuffle" android:textAllCaps="false" android:textColor="#306BF3" app:backgroundTint="#E7EEFF" />
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="32dp" android:text="Axis 1" android:textSize="16sp" android:textColor="#17191D" />
+            <Spinner android:id="@+id/web_x" android:layout_width="match_parent" android:layout_height="56dp" />
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" android:text="Axis 2" android:textSize="16sp" android:textColor="#17191D" />
+            <Spinner android:id="@+id/web_y" android:layout_width="match_parent" android:layout_height="56dp" />
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:id="@+id/web_z_label" android:layout_marginTop="16dp" android:text="Axis 3" android:textSize="16sp" android:textColor="#17191D" />
+            <Spinner android:id="@+id/web_z" android:layout_width="match_parent" android:layout_height="56dp" />
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:id="@+id/web_w_label" android:layout_marginTop="16dp" android:text="Axis 4" android:textSize="16sp" android:textColor="#17191D" />
+            <Spinner android:id="@+id/web_w" android:layout_width="match_parent" android:layout_height="56dp" />
+            <LinearLayout android:id="@+id/web_neighbors" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
+                <CheckBox android:id="@+id/web_edges" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Nearest neighbors" />
+                <Button android:id="@+id/web_neighbor_count" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Neighbors per item: 1" android:textAllCaps="false" />
+                <Button android:id="@+id/web_metric" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Adjust similarity" android:textAllCaps="false" />
+            </LinearLayout>
+            <com.google.android.material.button.MaterialButton android:id="@+id/web_continue"
+                android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp"
+                android:text="Continue" android:textAllCaps="false" app:backgroundTint="#306BF3" android:textColor="#FFFFFF" />
+            <TextView android:id="@+id/web_status" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" android:textColor="#626873" />
+        </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout android:id="@+id/web_figure" android:layout_width="match_parent" android:layout_height="0dp"
+        android:layout_weight="1" android:orientation="vertical" android:visibility="gone">
+        <TextView android:id="@+id/web_library_title" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:paddingTop="12dp" android:paddingBottom="16dp" android:textColor="#17191D" android:textSize="20sp" />
+        <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+                <LinearLayout android:id="@+id/web_body" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
+                <LinearLayout android:id="@+id/web_figure_controls" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+    <FrameLayout android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone">
+        <include layout="@layout/view_live_conditions" />
+    </FrameLayout>
+</LinearLayout>
