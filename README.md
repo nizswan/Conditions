@@ -58,35 +58,35 @@ To start it again, run `docker compose up -d`. After backend code changes, use `
 
 Libraries, attachment references, history, and settings stay on the Android device. The backend handles accounts and sessions. Updating the installed app keeps local data; uninstalling it or clearing its storage removes that data. Weather needs internet access and a current location. Generated build files, local settings, and `backend/.env` are excluded from Git.
 
-## Math I had to work through
+## Math we had to work through
 
 A lot of the math came from trying to make different kinds of context work together. A time, a battery percentage, and a Wi-Fi name can all describe an item, but comparing them takes different rules.
 
 ### Modular arithmetic: time of day
 
-Time of day wraps around. 11:55 PM and 12:05 AM are only 10 minutes apart, even though subtracting their minute-of-day values gives 1,430. For daily-time similarity, I use `delta = abs(a - b) % 1440`, then `min(delta, 1440 - delta)`. Dividing by 720 puts that circular distance between 0 and 1. Time conditions also handle ranges that cross midnight, like 10 PM to 2 AM.
+Time of day wraps around. 11:55 PM and 12:05 AM are only 10 minutes apart, even though subtracting their minute-of-day values gives 1,430. For daily-time similarity, we use `delta = abs(a - b) % 1440`, then `min(delta, 1440 - delta)`. Dividing by 720 puts that circular distance between 0 and 1. Time conditions also handle ranges that cross midnight, like 10 PM to 2 AM.
 
 ### Discretized vs. continuous representations
 
-I had to separate calendar date, daily time, and continuous time. Date groups timestamps into calendar days, daily time uses minutes on a repeating clock, and continuous time uses the full saved timestamp on a timeline. Two uploads can share a date or time of day without being the same moment. The timestamp still has finite millisecond precision; continuous here means it keeps moving forward instead of resetting each day. The choice changes which items overlap and which ones count as close.
+We had to separate calendar date, daily time, and continuous time. Date groups timestamps into calendar days, daily time uses minutes on a repeating clock, and continuous time uses the full saved timestamp on a timeline. Two uploads can share a date or time of day without being the same moment. The timestamp still has finite millisecond precision; continuous here means it keeps moving forward instead of resetting each day. The choice changes which items overlap and which ones count as close.
 
 ### Representations without a natural total order
 
-Wi-Fi names, Bluetooth device sets, and weather categories do not have a natural smaller-to-larger order. Alphabetically putting one network before another is useful for displaying labels, but it does not make the networks closer in meaning. I treat these as categories: Wi-Fi and weather use exact matches, and Bluetooth compares sets of device IDs. This is slightly different from being dimensionless: these are unordered labels, while normalized numeric values are unitless numbers.
+Wi-Fi names, Bluetooth device sets, and weather categories do not have a natural smaller-to-larger order. Alphabetically putting one network before another is useful for displaying labels, but it does not make the networks closer in meaning. We treat these as categories: Wi-Fi and weather use exact matches, and Bluetooth compares sets of device IDs. This is slightly different from being dimensionless: these are unordered labels, while normalized numeric values are unitless numbers.
 
 ### Dimension normalization and visualization
 
-Battery percentages, temperatures, coordinates, and timestamps have very different scales. I normalize numeric plot values using `(value - min) / (max - min)` so each dimension fits into the display. The ranges come from the whole library, so selecting fewer items does not keep changing the scale. When every value is the same, I put it in the middle instead of dividing by zero.
+Battery percentages, temperatures, coordinates, and timestamps have very different scales. We normalize numeric plot values using `(value - min) / (max - min)` so each dimension fits into the display. The ranges come from the whole library, so selecting fewer items does not keep changing the scale. When every value is the same, we put it in the middle instead of dividing by zero.
 
 The first two selected dimensions become horizontal and vertical position. The third becomes color, and the fourth becomes dot size. Categories get separate positions and colors with legends; their spacing or dot size is a display choice, not a real numerical distance between categories.
 
 ### Fixed seeding for randomness
 
-Randomness is useful for sampling a crowded library and breaking ties, but I did not want the graph changing every time it redraws. Sampling and neighbor ties reuse a saved seed, and Reshuffle advances that seed. Category colors use a fixed seed of `42`, so the same category list gets the same color assignment. That keeps the display reproducible for the same data and state without removing the option to reshuffle.
+Randomness is useful for sampling a crowded library and breaking ties, but we did not want the graph changing every time it redraws. Sampling and neighbor ties reuse a saved seed, and Reshuffle advances that seed. Category colors use a fixed seed of `42`, so the same category list gets the same color assignment. That keeps the display reproducible for the same data and state without removing the option to reshuffle.
 
 ### Metric builder and metric spaces
 
-The metric builder lets me choose what "close" means by selecting factors and giving numeric factors weights. Numeric distances are normalized, the numeric weights add up to 1, and the result is a weighted sum of those distances. A constant factor contributes zero, and daily time uses the circular distance above.
+The metric builder lets us choose what "close" means by selecting factors and giving numeric factors weights. Numeric distances are normalized, the numeric weights add up to 1, and the result is a weighted sum of those distances. A constant factor contributes zero, and daily time uses the circular distance above.
 
 The full comparison also ranks category matches first, then numeric distance. Any positive category weight enables that match; a larger category weight does not make it count more. So the complete neighbor rule is a similarity ranking, and the numeric part can give two different items distance zero when their selected readings match. Strictly speaking, that makes it a pseudometric on items rather than always a metric that distinguishes every item. Missing selected readings exclude an item from connections.
 
@@ -96,7 +96,7 @@ In the Web, content items are vertices and neighbor connections are edges. Each 
 
 ### A simple nearest-neighbor algorithm
 
-This is the part that feels closest to machine learning. For each eligible displayed item, I compare it with the others, rank them by category matches and then weighted numeric distance, and connect the first `k`. Exact ties use the seeded shuffle. There is no trained model or prediction step here; it is a direct nearest-neighbor search using the definition of similarity I choose. The factors used for connections can differ from the dimensions shown on the plot, so a neighbor is not necessarily the closest dot on the screen.
+This is the part that feels closest to machine learning. For each eligible displayed item, we compare it with the others, rank them by category matches and then weighted numeric distance, and connect the first `k`. Exact ties use the seeded shuffle. There is no trained model or prediction step here; it is a direct nearest-neighbor search using the definition of similarity we choose. The factors used for connections can differ from the dimensions shown on the plot, so a neighbor is not necessarily the closest dot on the screen.
 
 ## What you do on each screen
 
