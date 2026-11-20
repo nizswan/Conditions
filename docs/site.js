@@ -52,3 +52,25 @@ function draw() {
 }
 controls.forEach(control=>control.addEventListener('change',()=>{if(data.length)draw();}));
 fetch('assets/synthetic-data.json').then(response=>{if(!response.ok)throw new Error('Data unavailable');return response.json();}).then(items=>{data=items;draw();}).catch(()=>{status.textContent='The example could not load. Reload this page to try again.';});
+
+const conditionInfo = document.querySelector('#condition-info');
+const conditionsOverview = conditionInfo.innerHTML;
+const conditionDetails = {
+  time: ['A time for everything.', 'Choose a daily time window for a library, including windows that cross midnight. A library can be available at night, during study hours, or whenever your time rule allows.'],
+  location: ['Content with a place.', 'Choose a place and radius for a location condition. The app checks the current location and its accuracy to determine whether you are inside or outside that area.'],
+  battery: ['A charge-based condition.', 'Use a battery percentage range as a condition. Combine it with other rules to make a library available when the device has the charge level you choose.'],
+  'wi-fi': ['The network matters.', 'Use the connected Wi-Fi network as a condition. A matching network name can be part of the rule that makes a library available.'],
+  bluetooth: ['Connected devices. Connected rules.', 'Use a connected Bluetooth device, or the absence of connected devices, as a condition. Combine it with time, location, or other signals using conditional logic.'],
+  history: ['How recently were you here?', 'Use the time since your previous visit as a condition. Choose a range in minutes to make availability depend on how recently you used the app.'],
+  weather: ['Let the environment in.', 'Use local weather categories or a temperature range as conditions. Environment readings come from Open-Meteo using the current location and require internet access.']
+};
+document.querySelectorAll('[data-condition]').forEach(button => {
+  button.addEventListener('click', () => {
+    document.querySelectorAll('[data-condition]').forEach(other => other.setAttribute('aria-pressed', String(other === button)));
+    const detail = conditionDetails[button.dataset.condition];
+    if (!detail) { conditionInfo.innerHTML = conditionsOverview; return; }
+    const heading = document.createElement('h2'); heading.textContent = detail[0];
+    const description = document.createElement('p'); description.textContent = detail[1];
+    conditionInfo.replaceChildren(heading, description);
+  });
+});
