@@ -1,0 +1,802 @@
+[
+  {
+    "id": 6,
+    "title": "1.txt",
+    "battery": 27,
+    "temperature": 79.4,
+    "history": 152.83,
+    "weather": "Clear"
+  },
+  {
+    "id": 7,
+    "title": "2.txt",
+    "battery": 52,
+    "temperature": 73.21,
+    "history": 839.41,
+    "weather": "Clear"
+  },
+  {
+    "id": 8,
+    "title": "3.txt",
+    "battery": 61,
+    "temperature": 75.35,
+    "history": 453.33,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 9,
+    "title": "4.txt",
+    "battery": 39,
+    "temperature": 75.94,
+    "history": 712.99,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 10,
+    "title": "5.txt",
+    "battery": 71,
+    "temperature": 70.74,
+    "history": 689.36,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 11,
+    "title": "6.txt",
+    "battery": 14,
+    "temperature": 66.59,
+    "history": 955.11,
+    "weather": "Rainy"
+  },
+  {
+    "id": 12,
+    "title": "7.txt",
+    "battery": 46,
+    "temperature": 65.35,
+    "history": 616.04,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 13,
+    "title": "8.txt",
+    "battery": 11,
+    "temperature": 69.12,
+    "history": 84.53,
+    "weather": "Clear"
+  },
+  {
+    "id": 14,
+    "title": "9.txt",
+    "battery": 27,
+    "temperature": 70.45,
+    "history": 1338.37,
+    "weather": "Clear"
+  },
+  {
+    "id": 15,
+    "title": "10.txt",
+    "battery": 94,
+    "temperature": 79.0,
+    "history": 1337.7,
+    "weather": "Rainy"
+  },
+  {
+    "id": 16,
+    "title": "11.txt",
+    "battery": 84,
+    "temperature": 78.0,
+    "history": 54.01,
+    "weather": "Clear"
+  },
+  {
+    "id": 17,
+    "title": "12.txt",
+    "battery": 94,
+    "temperature": 65.84,
+    "history": 231.83,
+    "weather": "Rainy"
+  },
+  {
+    "id": 18,
+    "title": "13.txt",
+    "battery": 54,
+    "temperature": 73.18,
+    "history": 666.84,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 19,
+    "title": "14.txt",
+    "battery": 32,
+    "temperature": 65.52,
+    "history": 449.62,
+    "weather": "Rainy"
+  },
+  {
+    "id": 20,
+    "title": "15.txt",
+    "battery": 15,
+    "temperature": 72.53,
+    "history": 311.19,
+    "weather": "Clear"
+  },
+  {
+    "id": 21,
+    "title": "16.txt",
+    "battery": 33,
+    "temperature": 70.94,
+    "history": 594.15,
+    "weather": "Clear"
+  },
+  {
+    "id": 22,
+    "title": "17.txt",
+    "battery": 25,
+    "temperature": 66.49,
+    "history": 985.65,
+    "weather": "Clear"
+  },
+  {
+    "id": 23,
+    "title": "18.txt",
+    "battery": 90,
+    "temperature": 68.5,
+    "history": 188.35,
+    "weather": "Rainy"
+  },
+  {
+    "id": 24,
+    "title": "19.txt",
+    "battery": 79,
+    "temperature": 79.34,
+    "history": 736.16,
+    "weather": "Clear"
+  },
+  {
+    "id": 25,
+    "title": "20.txt",
+    "battery": 83,
+    "temperature": 72.21,
+    "history": 717.14,
+    "weather": "Rainy"
+  },
+  {
+    "id": 26,
+    "title": "21.txt",
+    "battery": 67,
+    "temperature": 70.09,
+    "history": 690.64,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 27,
+    "title": "22.txt",
+    "battery": 81,
+    "temperature": 73.39,
+    "history": 453.47,
+    "weather": "Rainy"
+  },
+  {
+    "id": 28,
+    "title": "23.txt",
+    "battery": 43,
+    "temperature": 70.58,
+    "history": 204.61,
+    "weather": "Rainy"
+  },
+  {
+    "id": 29,
+    "title": "24.txt",
+    "battery": 52,
+    "temperature": 79.73,
+    "history": 550.28,
+    "weather": "Clear"
+  },
+  {
+    "id": 30,
+    "title": "25.txt",
+    "battery": 44,
+    "temperature": 78.88,
+    "history": 1002.64,
+    "weather": "Rainy"
+  },
+  {
+    "id": 31,
+    "title": "26.txt",
+    "battery": 14,
+    "temperature": 72.32,
+    "history": 1421.52,
+    "weather": "Rainy"
+  },
+  {
+    "id": 32,
+    "title": "27.txt",
+    "battery": 99,
+    "temperature": 79.46,
+    "history": 372.43,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 33,
+    "title": "28.txt",
+    "battery": 92,
+    "temperature": 70.52,
+    "history": 674.5,
+    "weather": "Rainy"
+  },
+  {
+    "id": 34,
+    "title": "29.txt",
+    "battery": 98,
+    "temperature": 70.28,
+    "history": 1102.66,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 35,
+    "title": "30.txt",
+    "battery": 18,
+    "temperature": 67.56,
+    "history": 403.02,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 36,
+    "title": "31.txt",
+    "battery": 91,
+    "temperature": 76.29,
+    "history": 575.48,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 37,
+    "title": "32.txt",
+    "battery": 60,
+    "temperature": 76.58,
+    "history": 1280.12,
+    "weather": "Rainy"
+  },
+  {
+    "id": 38,
+    "title": "33.txt",
+    "battery": 98,
+    "temperature": 69.39,
+    "history": 1375.94,
+    "weather": "Rainy"
+  },
+  {
+    "id": 39,
+    "title": "34.txt",
+    "battery": 20,
+    "temperature": 71.69,
+    "history": 631.16,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 40,
+    "title": "35.txt",
+    "battery": 63,
+    "temperature": 77.13,
+    "history": 56.62,
+    "weather": "Clear"
+  },
+  {
+    "id": 41,
+    "title": "36.txt",
+    "battery": 41,
+    "temperature": 73.63,
+    "history": 139.98,
+    "weather": "Clear"
+  },
+  {
+    "id": 42,
+    "title": "37.txt",
+    "battery": 11,
+    "temperature": 67.22,
+    "history": 1025.76,
+    "weather": "Rainy"
+  },
+  {
+    "id": 43,
+    "title": "38.txt",
+    "battery": 69,
+    "temperature": 76.74,
+    "history": 1205.94,
+    "weather": "Rainy"
+  },
+  {
+    "id": 44,
+    "title": "39.txt",
+    "battery": 93,
+    "temperature": 72.75,
+    "history": 27.58,
+    "weather": "Clear"
+  },
+  {
+    "id": 45,
+    "title": "40.txt",
+    "battery": 62,
+    "temperature": 76.42,
+    "history": 840.54,
+    "weather": "Clear"
+  },
+  {
+    "id": 46,
+    "title": "41.txt",
+    "battery": 25,
+    "temperature": 72.84,
+    "history": 1357.84,
+    "weather": "Clear"
+  },
+  {
+    "id": 47,
+    "title": "42.txt",
+    "battery": 92,
+    "temperature": 70.59,
+    "history": 1160.47,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 48,
+    "title": "43.txt",
+    "battery": 86,
+    "temperature": 68.48,
+    "history": 880.88,
+    "weather": "Clear"
+  },
+  {
+    "id": 49,
+    "title": "44.txt",
+    "battery": 64,
+    "temperature": 68.15,
+    "history": 1270.03,
+    "weather": "Clear"
+  },
+  {
+    "id": 50,
+    "title": "45.txt",
+    "battery": 95,
+    "temperature": 69.95,
+    "history": 531.69,
+    "weather": "Rainy"
+  },
+  {
+    "id": 51,
+    "title": "46.txt",
+    "battery": 31,
+    "temperature": 69.1,
+    "history": 1258.45,
+    "weather": "Rainy"
+  },
+  {
+    "id": 52,
+    "title": "47.txt",
+    "battery": 100,
+    "temperature": 67.54,
+    "history": 592.97,
+    "weather": "Rainy"
+  },
+  {
+    "id": 53,
+    "title": "48.txt",
+    "battery": 40,
+    "temperature": 73.84,
+    "history": 141.61,
+    "weather": "Rainy"
+  },
+  {
+    "id": 54,
+    "title": "49.txt",
+    "battery": 56,
+    "temperature": 65.04,
+    "history": 35.13,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 55,
+    "title": "50.txt",
+    "battery": 17,
+    "temperature": 70.68,
+    "history": 143.41,
+    "weather": "Rainy"
+  },
+  {
+    "id": 56,
+    "title": "51.txt",
+    "battery": 67,
+    "temperature": 77.81,
+    "history": 357.84,
+    "weather": "Rainy"
+  },
+  {
+    "id": 57,
+    "title": "52.txt",
+    "battery": 16,
+    "temperature": 79.61,
+    "history": 1329.07,
+    "weather": "Clear"
+  },
+  {
+    "id": 58,
+    "title": "53.txt",
+    "battery": 31,
+    "temperature": 75.35,
+    "history": 516.67,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 59,
+    "title": "54.txt",
+    "battery": 22,
+    "temperature": 71.29,
+    "history": 840.1,
+    "weather": "Clear"
+  },
+  {
+    "id": 60,
+    "title": "55.txt",
+    "battery": 12,
+    "temperature": 72.39,
+    "history": 416.49,
+    "weather": "Rainy"
+  },
+  {
+    "id": 61,
+    "title": "56.txt",
+    "battery": 85,
+    "temperature": 74.74,
+    "history": 365.99,
+    "weather": "Clear"
+  },
+  {
+    "id": 62,
+    "title": "57.txt",
+    "battery": 57,
+    "temperature": 71.96,
+    "history": 1084.22,
+    "weather": "Rainy"
+  },
+  {
+    "id": 63,
+    "title": "58.txt",
+    "battery": 48,
+    "temperature": 65.55,
+    "history": 583.36,
+    "weather": "Rainy"
+  },
+  {
+    "id": 64,
+    "title": "59.txt",
+    "battery": 99,
+    "temperature": 71.91,
+    "history": 759.83,
+    "weather": "Clear"
+  },
+  {
+    "id": 65,
+    "title": "60.txt",
+    "battery": 93,
+    "temperature": 65.95,
+    "history": 334.62,
+    "weather": "Rainy"
+  },
+  {
+    "id": 66,
+    "title": "61.txt",
+    "battery": 22,
+    "temperature": 70.09,
+    "history": 43.68,
+    "weather": "Rainy"
+  },
+  {
+    "id": 67,
+    "title": "62.txt",
+    "battery": 97,
+    "temperature": 79.23,
+    "history": 1019.13,
+    "weather": "Rainy"
+  },
+  {
+    "id": 68,
+    "title": "63.txt",
+    "battery": 99,
+    "temperature": 73.55,
+    "history": 1318.56,
+    "weather": "Rainy"
+  },
+  {
+    "id": 69,
+    "title": "64.txt",
+    "battery": 27,
+    "temperature": 65.53,
+    "history": 1087.48,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 70,
+    "title": "65.txt",
+    "battery": 73,
+    "temperature": 69.02,
+    "history": 1043.63,
+    "weather": "Clear"
+  },
+  {
+    "id": 71,
+    "title": "66.txt",
+    "battery": 50,
+    "temperature": 65.43,
+    "history": 799.24,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 72,
+    "title": "67.txt",
+    "battery": 69,
+    "temperature": 68.27,
+    "history": 79.06,
+    "weather": "Rainy"
+  },
+  {
+    "id": 73,
+    "title": "68.txt",
+    "battery": 54,
+    "temperature": 72.74,
+    "history": 317.41,
+    "weather": "Clear"
+  },
+  {
+    "id": 74,
+    "title": "69.txt",
+    "battery": 80,
+    "temperature": 73.72,
+    "history": 710.43,
+    "weather": "Rainy"
+  },
+  {
+    "id": 75,
+    "title": "70.txt",
+    "battery": 87,
+    "temperature": 75.74,
+    "history": 664.95,
+    "weather": "Clear"
+  },
+  {
+    "id": 76,
+    "title": "71.txt",
+    "battery": 50,
+    "temperature": 66.78,
+    "history": 966.19,
+    "weather": "Clear"
+  },
+  {
+    "id": 77,
+    "title": "72.txt",
+    "battery": 48,
+    "temperature": 79.59,
+    "history": 732.91,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 78,
+    "title": "73.txt",
+    "battery": 26,
+    "temperature": 69.88,
+    "history": 520.28,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 79,
+    "title": "74.txt",
+    "battery": 40,
+    "temperature": 75.61,
+    "history": 1064.24,
+    "weather": "Rainy"
+  },
+  {
+    "id": 80,
+    "title": "75.txt",
+    "battery": 91,
+    "temperature": 65.31,
+    "history": 1253.81,
+    "weather": "Clear"
+  },
+  {
+    "id": 81,
+    "title": "76.txt",
+    "battery": 17,
+    "temperature": 66.39,
+    "history": 426.61,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 82,
+    "title": "77.txt",
+    "battery": 33,
+    "temperature": 67.65,
+    "history": 1234.21,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 83,
+    "title": "78.txt",
+    "battery": 13,
+    "temperature": 76.53,
+    "history": 644.32,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 84,
+    "title": "79.txt",
+    "battery": 76,
+    "temperature": 65.9,
+    "history": 321.57,
+    "weather": "Rainy"
+  },
+  {
+    "id": 85,
+    "title": "80.txt",
+    "battery": 67,
+    "temperature": 73.5,
+    "history": 76.21,
+    "weather": "Clear"
+  },
+  {
+    "id": 86,
+    "title": "81.txt",
+    "battery": 100,
+    "temperature": 68.92,
+    "history": 199.18,
+    "weather": "Clear"
+  },
+  {
+    "id": 87,
+    "title": "82.txt",
+    "battery": 48,
+    "temperature": 77.59,
+    "history": 1120.5,
+    "weather": "Clear"
+  },
+  {
+    "id": 88,
+    "title": "83.txt",
+    "battery": 95,
+    "temperature": 72.34,
+    "history": 751.59,
+    "weather": "Rainy"
+  },
+  {
+    "id": 89,
+    "title": "84.txt",
+    "battery": 48,
+    "temperature": 69.25,
+    "history": 1334.29,
+    "weather": "Clear"
+  },
+  {
+    "id": 90,
+    "title": "85.txt",
+    "battery": 83,
+    "temperature": 69.59,
+    "history": 964.18,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 91,
+    "title": "86.txt",
+    "battery": 38,
+    "temperature": 77.36,
+    "history": 436.42,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 92,
+    "title": "87.txt",
+    "battery": 53,
+    "temperature": 65.0,
+    "history": 790.34,
+    "weather": "Rainy"
+  },
+  {
+    "id": 93,
+    "title": "88.txt",
+    "battery": 11,
+    "temperature": 73.67,
+    "history": 401.96,
+    "weather": "Rainy"
+  },
+  {
+    "id": 94,
+    "title": "89.txt",
+    "battery": 45,
+    "temperature": 67.68,
+    "history": 134.9,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 95,
+    "title": "90.txt",
+    "battery": 44,
+    "temperature": 67.8,
+    "history": 654.28,
+    "weather": "Clear"
+  },
+  {
+    "id": 96,
+    "title": "91.txt",
+    "battery": 42,
+    "temperature": 74.37,
+    "history": 1348.47,
+    "weather": "Clear"
+  },
+  {
+    "id": 97,
+    "title": "92.txt",
+    "battery": 64,
+    "temperature": 65.21,
+    "history": 1253.2,
+    "weather": "Rainy"
+  },
+  {
+    "id": 98,
+    "title": "93.txt",
+    "battery": 85,
+    "temperature": 65.56,
+    "history": 1050.97,
+    "weather": "Clear"
+  },
+  {
+    "id": 99,
+    "title": "94.txt",
+    "battery": 26,
+    "temperature": 73.09,
+    "history": 1390.46,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 100,
+    "title": "95.txt",
+    "battery": 64,
+    "temperature": 71.82,
+    "history": 315.01,
+    "weather": "Rainy"
+  },
+  {
+    "id": 101,
+    "title": "96.txt",
+    "battery": 52,
+    "temperature": 77.14,
+    "history": 16.2,
+    "weather": "Clear"
+  },
+  {
+    "id": 102,
+    "title": "97.txt",
+    "battery": 18,
+    "temperature": 76.44,
+    "history": 1328.7,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 103,
+    "title": "98.txt",
+    "battery": 100,
+    "temperature": 68.07,
+    "history": 87.41,
+    "weather": "Clear"
+  },
+  {
+    "id": 104,
+    "title": "99.txt",
+    "battery": 29,
+    "temperature": 78.7,
+    "history": 68.84,
+    "weather": "Cloudy"
+  },
+  {
+    "id": 105,
+    "title": "100.txt",
+    "battery": 86,
+    "temperature": 74.28,
+    "history": 1044.76,
+    "weather": "Rainy"
+  }
+]
