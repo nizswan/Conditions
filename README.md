@@ -106,7 +106,9 @@ There are four main tabs, plus the sign-in/sign-up screen. The smaller editors, 
 
 See your libraries and live conditions. Search by title or switch between Active, Hidden, and All. Open an available library, or tap a locked one to see why it is locked. The library options let you change its title, description, conditions, or cover photo, or delete it.
 
-**Library editor / Condition Creator:** Add a library with a title, optional description, and cover. Add condition pieces, configure their ranges, places, devices, networks, or weather, then combine their letters with `AND`, `OR`, `NOT`, and parentheses. For example, `(A OR B) AND NOT C`. The available condition types come from what you enable in Settings.
+Active shows libraries whose conditions currently hold, while Hidden shows the ones that are locked. The counts and availability update with the live readings, so a library can become available as your context changes. If an open library's conditions stop holding, it closes with a message.
+
+**Library editor / Condition Creator:** Add a library with a title, optional description, and cover. Add condition pieces, configure their ranges, places, devices, networks, or weather, then combine their letters with `AND`, `OR`, `NOT`, and parentheses. For example, `(A OR B) AND NOT C` allows either A or B, but requires C to be false. The available condition types come from what you enable in Settings.
 
 **Library contents / item viewer:** Search and sort items by newest, oldest, or name. Open an item and swipe between items, view saved context readings, preview photos and the first page of PDFs, play audio, or open a file in another app. Item options let you rename or remove it from that library.
 
@@ -114,15 +116,21 @@ See your libraries and live conditions. Search by title or switch between Active
 
 Give your payload a title and select up to 10 photos, audio files, or documents. The attachment picker lets you take a camera photo or choose multiple files, and you can remove attachments before saving.
 
+The attachment list shows the selected filenames and a running count so you can check what you are adding. On the next step, libraries are labeled Unlocked or Locked; only unlocked ones can be selected.
+
 **Library selection:** Continue to choose one or more unlocked libraries, or use `+` to create a library. Save to add the content along with a snapshot of the available enabled conditions at submission time. You can go back to adjust the payload before saving.
 
 ### 3. Settings
 
 View your account and previous login information, edit your name or username, and enable or disable Time, Location, Battery, Bluetooth, Wi-Fi, History, and Environment. Android permission prompts appear where needed. You can also sign out, reset your local libraries, or delete your account; reset and deletion open confirmation dialogs.
 
+These condition switches control which types are available for building rules and collecting context when you save content. Time is enabled by default. Your choices are saved for each account and remain in place after signing out.
+
 ### 4. Web
 
 Choose an unlocked library and the starting dimensions, then continue to the figure. Explore saved readings through position, color, and dot size. These are the readings captured when the content was added.
+
+The first two dimensions control horizontal and vertical position, the third controls color, and the fourth controls dot size. Changing the dimensions gives you another way to compare the same saved items. The similarity factors used for neighbor connections can differ from the dimensions you display.
 
 **Figure controls:** Choose up to four dimensions, turn neighbor connections on or off, and change the number of neighbors. **Adjust similarity** opens the metric builder to add or remove factors and set weights. **Items to display** lets you select items and set a maximum count; Reshuffle changes the sample when more items are available than the limit.
 
@@ -131,3 +139,5 @@ Choose an unlocked library and the starting dimensions, then continue to the fig
 ### 5. Sign in / Sign up
 
 Create an account with a name, username, password, and password confirmation, or sign in to an existing account. A successful login opens Vault, and the app remembers the session across restarts.
+
+You can switch between the two forms from this screen. During sign-up, a password indicator checks for at least eight characters, a letter, and a number. The confirmation must match before the account can be created.
